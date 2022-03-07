@@ -5,11 +5,20 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: Verdana;
+    background-color: lightgray;
 }
 
 canvas {
-    width: 600px;
-    height: 600px;
-    box-shadow: gray 8px 8px 20px;
+    box-shadow: gray 10px 10px 10px;
+    border: 2px solid greenyellow;
 }
 
+button {
+    background-color: green;
+    color: white;
+    border: none;
+    font-size: 16px;
+    margin-bottom: 1em;
+    padding: 0.25em 1em;
+}

@@ -18,6 +18,8 @@ let foodY = 5;
 let xVelocity = 0;
 let yVelocity = 0;
 
+let score = 0;
+
 //The game loop
 function drawGame() {
     clearScreen();
@@ -25,6 +27,7 @@ function drawGame() {
     changeSnakePosition();
     drawFood();
     checkFoodCollision();
+    drawScore();
     setTimeout(drawGame, 1000 / speed);
 }
 
@@ -32,6 +35,13 @@ function drawGame() {
 function clearScreen() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+// Score card
+function drawScore() {
+    ctx.fillStyle = "greenyellow";
+    ctx.font = "16px Verdana";
+    ctx.fillText("Score: " + score, canvas.width - 90, 20);
 }
 
 //Snake element
@@ -84,6 +94,7 @@ function checkFoodCollision() {
         foodX = Math.floor(Math.random() * tileCount);
         foodY = Math.floor(Math.random() * tileCount);
         tailLength++;
+        score++;
     }
 }
 

@@ -22,11 +22,15 @@ let score = 0;
 
 //The game loop
 function drawGame() {
-    clearScreen();
-    drawSnake();
     changeSnakePosition();
-    drawFood();
+    let result = isGameOver();
+    if (result) {
+        return;
+    }
+    clearScreen();
     checkFoodCollision();
+    drawFood();
+    drawSnake();
     drawScore();
     setTimeout(drawGame, 1000 / speed);
 }
@@ -98,7 +102,34 @@ function checkFoodCollision() {
     }
 }
 
-//collision detection
+//Implementing conditions to determine how the game will end (collision detection)
+function isGameOver() {
+    let gameOver = false;
+    if (yVelocity === 0 && xVelocity === 0) {
+        return false;
+    }
+    //walls
+    if (snakeHeadX < 0) {
+        gameOver = true;
+    } else if (snakeHeadX === tileBlock) {
+        gameOver = true;
+    } else if (snakeHeadY < 0) {
+        gameOver = true;
+    } else if (snakeHeadY === tileBlock) {
+        gameOver = true;
+    }
+
+    // Snake running into itself
+    for (let i = 0; i < snakeParts.length; i++) {
+        let part = snakeParts[i];
+        if (part.x === snakeHeadX && part.y === snakeHeadY) {
+            gameOver = true;
+            break;
+        }
+    }
+
+    return gameOver;
+}
 
 //Moving snake element (up, down, right & left arrow keys)
 document.body.addEventListener("keydown", keyDown);

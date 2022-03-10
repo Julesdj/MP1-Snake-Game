@@ -19,6 +19,11 @@ let xVelocity = 0;
 let yVelocity = 0;
 
 let score = 0;
+let gameLevel = 1;
+
+//adding sound effect
+const eatingSound = new Audio("eating_sound.mp3");
+const shockSound = new Audio("shock_sound.mp3");
 
 //The game loop
 function drawGame() {
@@ -32,6 +37,36 @@ function drawGame() {
     drawFood();
     drawSnake();
     drawScore();
+    drawGameLevel();
+
+    if (score > 9) {
+        speed = 11;
+    }
+    if (score > 19) {
+        speed = 14;
+    }
+    if (score > 29) {
+        speed = 17;
+    }
+    if (score > 39) {
+        speed = 19;
+    }
+    if (score > 49) {
+        speed = 21;
+    }
+    if (score > 59) {
+        speed = 20;
+    }
+    if (score > 69) {
+        speed = 18;
+    }
+    if (score > 69) {
+        speed = 16;
+    }
+    if (score > 99) {
+        speed = 10;
+    }
+
     setTimeout(drawGame, 1000 / speed);
 }
 
@@ -99,6 +134,7 @@ function checkFoodCollision() {
         foodY = Math.floor(Math.random() * tileCount);
         tailLength++;
         score++;
+        eatingSound.play();
     }
 }
 
@@ -111,12 +147,16 @@ function isGameOver() {
     //walls
     if (snakeHeadX < 0) {
         gameOver = true;
+        shockSound.play();
     } else if (snakeHeadX === tileBlock) {
         gameOver = true;
+        shockSound.play();
     } else if (snakeHeadY < 0) {
         gameOver = true;
+        shockSound.play();
     } else if (snakeHeadY === tileBlock) {
         gameOver = true;
+        shockSound.play();
     }
 
     // Snake running into itself
@@ -124,8 +164,24 @@ function isGameOver() {
         let part = snakeParts[i];
         if (part.x === snakeHeadX && part.y === snakeHeadY) {
             gameOver = true;
+            shockSound.play();
             break;
         }
+    }
+
+    //Display game over message
+    if (gameOver) {
+        ctx.fillStyle = "white";
+        ctx.font = "70px Verdana";
+
+        var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+        gradient.addColorStop("0.25", "greenyellow");
+        gradient.addColorStop("1.0", "red");
+
+        // Fill with gradient
+        ctx.fillStyle = gradient;
+
+        ctx.fillText("Game Over!", canvas.width / 5, canvas.height / 2);
     }
 
     return gameOver;

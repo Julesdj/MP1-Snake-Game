@@ -83,6 +83,13 @@ function drawScore() {
     ctx.fillText("Score: " + score, canvas.width - 90, 20);
 }
 
+//Level card
+function drawGameLevel() {
+    ctx.fillStyle = "greenyellow";
+    ctx.font = "16px Verdana";
+    ctx.fillText("Level: " + gameLevel, canvas.width - 610, 20);
+}
+
 //Snake element
 function drawSnake() {
     ctx.fillStyle = "green";
@@ -135,6 +142,24 @@ function checkFoodCollision() {
         tailLength++;
         score++;
         eatingSound.play();
+        if (score >= 10) {
+            gameLevel = 2;
+        }
+        if (score >= 20) {
+            gameLevel = 3;
+        }
+        if (score >= 30) {
+            gameLevel = 4;
+        }
+        if (score >= 40) {
+            gameLevel = 5;
+        }
+        if (score >= 50) {
+            gameLevel = 6;
+        }
+        if (score >= 60) {
+            gameLevel = 7;
+        }
     }
 }
 

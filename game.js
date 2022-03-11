@@ -15,7 +15,7 @@ let tailLength = 2;
 let foodX = 5;
 let foodY = 5;
 
-let xVelocity = 0;
+let xVelocity = -1;
 let yVelocity = 0;
 
 let score = 0;
